@@ -2,10 +2,8 @@
 	<div id="login-form">
 		<img src="@/assets/book-dark.png" alt="logo" id="logo" />
 		<h2 id="title" class="noselect">Please signin to continue</h2>
-		<div id="form" class="noselect">
-			<a
-				href="https://discord.com/api/oauth2/authorize?client_id=716267735071326229&redirect_uri=http%3A%2F%2F192.168.1.39%3A8080%2Fredirect&response_type=code&scope=identify&prompt=none&state=somestate"
-			>
+		<div id="form" class="noselect" :style="ready ? '' : 'filter: brightness(60%); cursor: not-allowed;'">
+			<a :href="auth_link" :style="ready ? '' : 'pointer-events: none;'">
 				<button>
 					<img src="@/assets/icon_clyde_white_RGB.png" id="clyde" />
 					Continue with Discord
@@ -16,10 +14,22 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Vue } from "vue-class-component";
+import { client_id } from "@/config.json";
 
 export default class HelloWorld extends Vue {
-	msg!: string;
+	auth_link = "";
+	ready = false;
+
+	mounted() {
+		// axios.get(endpoint + "/client_id").then(res => {
+		// const client_id = (res.data as any).client_id;
+		this.auth_link = `https://discord.com/api/oauth2/authorize?client_id=${client_id}&redirect_uri=${encodeURIComponent(
+			window.location.origin
+		)}%2Fhomework%2Fcallback&response_type=code&scope=identify+guilds&state=somestate`;
+		this.ready = true;
+		// });
+	}
 }
 </script>
 

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Login from '../views/Login.vue';
+import Callback from '../views/Callback.vue';
 // import Dashboard from '../views/Dashboard.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -7,6 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/callback',
+    name: 'Callback',
+    component: Callback
   },
   {
     path: '/dashboard',
